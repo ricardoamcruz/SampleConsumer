@@ -1,0 +1,27 @@
+{
+  "consumer": {
+    "name": "SampleConsumer"
+  },
+  "provider": {
+    "name": "SampleAPI"
+  },
+  "interactions": [
+    {
+      "description": "A GET request to /Responses/WithStatusCode200",
+      "request": {
+        "method": "get",
+        "path": "/Responses/WithStatusCode200"
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+        }
+      }
+    }
+  ],
+  "metadata": {
+    "pactSpecification": {
+      "version": "2.0.0"
+    }
+  }
+}
