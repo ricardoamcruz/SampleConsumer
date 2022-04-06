@@ -55,15 +55,12 @@ namespace tests
                 .With(new ProviderServiceRequest
                 {
                     Method = HttpVerb.Get,
-                    Path = "/Responses/WithTestStatus"//,
-                    //Body = new MinTypeMatcher(new
-                    //{
-                    //    valor = true
-                    //}, 1),
-                    //Headers = new Dictionary<string, object>
-                    //{
-                    //    { "Content-Type", "application/json" }
-                    //}
+                    Path = "/Responses/WithTestStatus",
+                    Body = true,
+                    Headers = new Dictionary<string, object>
+                    {
+                        { "Content-Type", "application/json; charset=utf-8" }
+                    }
                 })
                 .WillRespondWith(new ProviderServiceResponse
                 {
@@ -84,19 +81,11 @@ namespace tests
         {
             // Arrange
             _mockProviderService.Given("/Responses/WithTestStatus")
-                .UponReceiving("A GET request to /Responses/WithTestStatus")
+                .UponReceiving("A GET request to /Responses/WithTestStatus with body")
                 .With(new ProviderServiceRequest
                 {
                     Method = HttpVerb.Get,
-                    Path = "/Responses/WithTestStatus"//,
-                    //Body = new MinTypeMatcher(new
-                    //{
-                    //    valor = false
-                    //}, 1),
-                    //Headers = new Dictionary<string, object>
-                    //{
-                    //    { "Content-Type", "application/json" }
-                    //}
+                    Path = "/Responses/WithTestStatus"
                 })
                 .WillRespondWith(new ProviderServiceResponse
                 {

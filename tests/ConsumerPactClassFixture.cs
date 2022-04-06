@@ -24,7 +24,7 @@ namespace tests
             {
                 SpecificationVersion = "2.0.0",
                 PactDir = @"..\..\..\..\pacts",
-                LogDir = @".\pact_logs"
+                LogDir = @"..\..\..\..\pact_logs"
             };
 
             PactBuilder = new PactBuilder(pactConfig);

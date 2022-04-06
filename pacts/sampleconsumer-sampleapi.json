@@ -31,6 +31,19 @@
         "headers": {
         }
       }
+    },
+    {
+      "description": "A GET request to /Responses/WithTestStatus with body",
+      "providerState": "/Responses/WithTestStatus",
+      "request": {
+        "method": "get",
+        "path": "/Responses/WithTestStatus"
+      },
+      "response": {
+        "status": 204,
+        "headers": {
+        }
+      }
     }
   ],
   "metadata": {
