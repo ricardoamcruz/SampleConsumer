@@ -19,6 +19,9 @@ namespace Consumer
 
             result = consumer.GetResponse(baseUri + "/Responses/WithTestStatus").GetAwaiter().GetResult();
             Console.WriteLine(result);
+
+            result = consumer.GetResponse(baseUri + "/Responses/WithTestStatus?valor=true").GetAwaiter().GetResult();
+            Console.WriteLine(result);
         }
     }
 }

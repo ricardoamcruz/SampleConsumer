@@ -46,21 +46,17 @@ namespace tests
             result.Should().Be(HttpStatusCode.OK);
         }
 
-        //[Fact]
+        [Fact]
         public async void ReceivesTestBodyTrue()
         {
             // Arrange
-            _mockProviderService.Given("/Responses/WithTestStatus")
-                .UponReceiving("A GET request to /Responses/WithTestStatus")
+            _mockProviderService.Given("/Responses/WithTestStatus true")
+                .UponReceiving("A GET request to /Responses/WithTestStatus with body")
                 .With(new ProviderServiceRequest
                 {
                     Method = HttpVerb.Get,
                     Path = "/Responses/WithTestStatus",
-                    Body = true,
-                    Headers = new Dictionary<string, object>
-                    {
-                        { "Content-Type", "application/json; charset=utf-8" }
-                    }
+                    Query = "valor=true"
                 })
                 .WillRespondWith(new ProviderServiceResponse
                 {
@@ -69,7 +65,7 @@ namespace tests
 
             // Act
             var consumer = new ProductClient();
-            HttpStatusCode result = await consumer.GetResponse(_mockProviderServiceBaseUri + "/Responses/WithTestStatus");
+            HttpStatusCode result = await consumer.GetResponse(_mockProviderServiceBaseUri + "/Responses/WithTestStatus?valor=true");
 
             // Assert
             result.Should().NotBeNull();
@@ -80,8 +76,8 @@ namespace tests
         public async void ReceivesTestBodyFalse()
         {
             // Arrange
-            _mockProviderService.Given("/Responses/WithTestStatus")
-                .UponReceiving("A GET request to /Responses/WithTestStatus with body")
+            _mockProviderService.Given("/Responses/WithTestStatus false")
+                .UponReceiving("A GET request to /Responses/WithTestStatus")
                 .With(new ProviderServiceRequest
                 {
                     Method = HttpVerb.Get,

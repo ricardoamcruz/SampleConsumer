@@ -7,11 +7,12 @@
   },
   "interactions": [
     {
-      "description": "A GET request to /Responses/WithStatusCode200",
-      "providerState": "/Responses/WithStatusCode200",
+      "description": "A GET request to /Responses/WithTestStatus with body",
+      "providerState": "/Responses/WithTestStatus true",
       "request": {
         "method": "get",
-        "path": "/Responses/WithStatusCode200"
+        "path": "/Responses/WithTestStatus",
+        "query": "valor=true"
       },
       "response": {
         "status": 200,
@@ -21,7 +22,7 @@
     },
     {
       "description": "A GET request to /Responses/WithTestStatus",
-      "providerState": "/Responses/WithTestStatus",
+      "providerState": "/Responses/WithTestStatus false",
       "request": {
         "method": "get",
         "path": "/Responses/WithTestStatus"
@@ -33,14 +34,14 @@
       }
     },
     {
-      "description": "A GET request to /Responses/WithTestStatus with body",
-      "providerState": "/Responses/WithTestStatus",
+      "description": "A GET request to /Responses/WithStatusCode200",
+      "providerState": "/Responses/WithStatusCode200",
       "request": {
         "method": "get",
-        "path": "/Responses/WithTestStatus"
+        "path": "/Responses/WithStatusCode200"
       },
       "response": {
-        "status": 204,
+        "status": 200,
         "headers": {
         }
       }
