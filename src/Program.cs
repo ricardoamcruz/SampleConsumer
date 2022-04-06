@@ -14,7 +14,7 @@ namespace Consumer
 
             Console.WriteLine("Fetching response");
             var consumer = new ProductClient();
-            HttpStatusCode result = consumer.GetResponse(baseUri).GetAwaiter().GetResult();
+            HttpStatusCode result = consumer.GetResponse(baseUri + "/Responses/WithStatusCode200").GetAwaiter().GetResult();
             Console.WriteLine(result);
         }
 

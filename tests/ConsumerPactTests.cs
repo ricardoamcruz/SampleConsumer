@@ -1,13 +1,11 @@
-using System;
-using Xunit;
+using Consumer;
+using FluentAssertions;
+using PactNet.Matchers.Type;
 using PactNet.Mocks.MockHttpService;
 using PactNet.Mocks.MockHttpService.Models;
-using Consumer;
-using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
-using PactNet.Matchers.Type;
-using FluentAssertions;
 using System.Net;
+using Xunit;
 
 namespace tests
 {
@@ -23,7 +21,7 @@ namespace tests
             _mockProviderServiceBaseUri = fixture.MockProviderServiceBaseUri;
         }
 
-       [Fact]
+        [Fact]
         public async void ReceivesBodyWithString()
         {
             // Arrange
@@ -41,7 +39,73 @@ namespace tests
 
             // Act
             var consumer = new ProductClient();
-            HttpStatusCode result = await consumer.GetResponse(_mockProviderServiceBaseUri);
+            HttpStatusCode result = await consumer.GetResponse(_mockProviderServiceBaseUri + "/Responses/WithStatusCode200");
+
+            // Assert
+            result.Should().NotBeNull();
+            result.Should().Be(HttpStatusCode.OK);
+        }
+
+        [Fact]
+        public async void ReceivesTestBodyTrue()
+        {
+            // Arrange
+            _mockProviderService.Given("/Responses/WithTestStatus")
+                .UponReceiving("A GET request to /Responses/WithTestStatus")
+                .With(new ProviderServiceRequest
+                {
+                    Method = HttpVerb.Get,
+                    Path = "/Responses/WithTestStatus",
+                    Body = new MinTypeMatcher(new
+                    {
+                        valor = true
+                    }, 1),
+                    Headers = new Dictionary<string, object>
+                    {
+                        { "Content-Type", "application/json" }
+                    }
+                })
+                .WillRespondWith(new ProviderServiceResponse
+                {
+                    Status = 200
+                });
+
+            // Act
+            var consumer = new ProductClient();
+            HttpStatusCode result = await consumer.GetResponse(_mockProviderServiceBaseUri + "/Responses/WithTestStatus");
+
+            // Assert
+            result.Should().NotBeNull();
+            result.Should().Be(HttpStatusCode.OK);
+        }
+
+        [Fact]
+        public async void ReceivesTestBodyFalse()
+        {
+            // Arrange
+            _mockProviderService.Given("/Responses/WithTestStatus")
+                .UponReceiving("A GET request to /Responses/WithTestStatus")
+                .With(new ProviderServiceRequest
+                {
+                    Method = HttpVerb.Get,
+                    Path = "/Responses/WithTestStatus",
+                    Body = new MinTypeMatcher(new
+                    {
+                        valor = false
+                    }, 1),
+                    Headers = new Dictionary<string, object>
+                    {
+                        { "Content-Type", "application/json" }
+                    }
+                })
+                .WillRespondWith(new ProviderServiceResponse
+                {
+                    Status = 204
+                });
+
+            // Act
+            var consumer = new ProductClient();
+            HttpStatusCode result = await consumer.GetResponse(_mockProviderServiceBaseUri + "/Responses/WithTestStatus");
 
             // Assert
             result.Should().NotBeNull();

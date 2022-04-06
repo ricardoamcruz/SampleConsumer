@@ -14,7 +14,7 @@ namespace Consumer
         {
             using var client = httpClient ?? new HttpClient();
 
-            var response = await client.GetAsync(baseUrl + "/Responses/WithStatusCode200");
+            var response = await client.GetAsync(baseUrl);
             response.EnsureSuccessStatusCode();
 
             HttpStatusCode resp = response.StatusCode;
