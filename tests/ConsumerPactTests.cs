@@ -50,7 +50,7 @@ namespace tests
         public async void ReceivesTestBodyTrue()
         {
             // Arrange
-            _mockProviderService.Given("/Responses/WithTestStatus true")
+            _mockProviderService//.Given("/Responses/WithTestStatus true")
                 .UponReceiving("A GET request to /Responses/WithTestStatus with body")
                 .With(new ProviderServiceRequest
                 {

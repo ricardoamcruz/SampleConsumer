@@ -8,7 +8,6 @@
   "interactions": [
     {
       "description": "A GET request to /Responses/WithTestStatus with body",
-      "providerState": "/Responses/WithTestStatus true",
       "request": {
         "method": "get",
         "path": "/Responses/WithTestStatus",
