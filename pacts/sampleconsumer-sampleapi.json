@@ -8,6 +8,7 @@
   "interactions": [
     {
       "description": "A GET request to /Responses/WithStatusCode200",
+      "providerState": "/Responses/WithStatusCode200",
       "request": {
         "method": "get",
         "path": "/Responses/WithStatusCode200"
@@ -17,19 +18,7 @@
         "headers": {
           "Content-Type": "application/json"
         },
-        "body": [
-          {
-            "a": ""
-          }
-        ],
-        "matchingRules": {
-          "$.body": {
-            "min": 1
-          },
-          "$.body[*].*": {
-            "match": "type"
-          }
-        }
+        "body": ""
       }
     }
   ],

@@ -27,7 +27,8 @@ namespace tests
         public async void ReceivesBodyWithString()
         {
             // Arrange
-            _mockProviderService.UponReceiving("A GET request to /Responses/WithStatusCode200")
+            _mockProviderService.Given("/Responses/WithStatusCode200")
+                .UponReceiving("A GET request to /Responses/WithStatusCode200")
                 .With(new ProviderServiceRequest
                 {
                     Method = HttpVerb.Get,
@@ -36,10 +37,7 @@ namespace tests
                 .WillRespondWith(new ProviderServiceResponse
                 {
                     Status = 200,
-                    Body = new MinTypeMatcher(new
-                    { 
-                        a = ""
-                    }, 1),
+                    Body = "",
                     Headers = new Dictionary<string, object>
                     {
                         { "Content-Type", "application/json" }
