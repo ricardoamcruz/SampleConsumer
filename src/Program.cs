@@ -16,18 +16,9 @@ namespace Consumer
             var consumer = new ProductClient();
             HttpStatusCode result = consumer.GetResponse(baseUri + "/Responses/WithStatusCode200").GetAwaiter().GetResult();
             Console.WriteLine(result);
-        }
 
-        static private void WriteoutArgsUsed(string datetimeArg, string baseUriArg)
-        {
-            Console.WriteLine($"Running consumer with args: dateTimeToValidate = {datetimeArg}, baseUri = {baseUriArg}");
-        }
-
-        static private void WriteoutUsageInstructions()
-        {
-            Console.WriteLine("To use with your own parameters:");
-            Console.WriteLine("Usage: dotnet run ");
-            Console.WriteLine("Usage Example: dotnet run 01/01/2018 http://localhost:9000");
+            result = consumer.GetResponse(baseUri + "/Responses/WithTestStatus").GetAwaiter().GetResult();
+            Console.WriteLine(result);
         }
     }
 }

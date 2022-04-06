@@ -15,7 +15,7 @@ namespace Consumer
             using var client = httpClient ?? new HttpClient();
 
             var response = await client.GetAsync(baseUrl);
-            response.EnsureSuccessStatusCode();
+            //response.EnsureSuccessStatusCode();
 
             HttpStatusCode resp = response.StatusCode;
             //var resp = await response.Content.ReadAsStringAsync();
