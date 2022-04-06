@@ -36,12 +36,7 @@ namespace tests
                 })
                 .WillRespondWith(new ProviderServiceResponse
                 {
-                    Status = 200,
-                    Body = "",
-                    Headers = new Dictionary<string, object>
-                    {
-                        { "Content-Type", "application/json" }
-                    }
+                    Status = 200
                 });
 
             // Act
