@@ -3,6 +3,7 @@ using Xunit;
 using PactNet.Mocks.MockHttpService;
 using PactNet.Mocks.MockHttpService.Models;
 using Consumer;
+using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using PactNet.Matchers.Type;
 using FluentAssertions;
@@ -22,7 +23,7 @@ namespace tests
             _mockProviderServiceBaseUri = fixture.MockProviderServiceBaseUri;
         }
 
-        [Fact]
+       [Fact]
         public async void ReceivesBodyWithString()
         {
             // Arrange
@@ -34,7 +35,15 @@ namespace tests
                 })
                 .WillRespondWith(new ProviderServiceResponse
                 {
-                    Status = 200
+                    Status = 200,
+                    Body = new MinTypeMatcher(new
+                    { 
+                        a = ""
+                    }, 1),
+                    Headers = new Dictionary<string, object>
+                    {
+                        { "Content-Type", "application/json" }
+                    }
                 });
 
             // Act

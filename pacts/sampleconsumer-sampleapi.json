@@ -15,6 +15,20 @@
       "response": {
         "status": 200,
         "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": [
+          {
+            "a": ""
+          }
+        ],
+        "matchingRules": {
+          "$.body": {
+            "min": 1
+          },
+          "$.body[*].*": {
+            "match": "type"
+          }
         }
       }
     }
