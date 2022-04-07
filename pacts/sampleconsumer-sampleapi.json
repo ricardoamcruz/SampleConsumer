@@ -7,6 +7,31 @@
   },
   "interactions": [
     {
+      "description": "A GET request to /Responses/WithTestStatus with query",
+      "request": {
+        "method": "get",
+        "path": "/Responses/WithTestStatus",
+        "query": "valor=true"
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+        }
+      }
+    },
+    {
+      "description": "A GET request to /Responses/WithTestStatus",
+      "request": {
+        "method": "get",
+        "path": "/Responses/WithTestStatus"
+      },
+      "response": {
+        "status": 204,
+        "headers": {
+        }
+      }
+    },
+    {
       "description": "A POST request to /Body/WithModel",
       "request": {
         "method": "post",
@@ -33,33 +58,7 @@
       }
     },
     {
-      "description": "A GET request to /Responses/WithTestStatus with query",
-      "request": {
-        "method": "get",
-        "path": "/Responses/WithTestStatus",
-        "query": "valor=true"
-      },
-      "response": {
-        "status": 200,
-        "headers": {
-        }
-      }
-    },
-    {
-      "description": "A GET request to /Responses/WithTestStatus",
-      "request": {
-        "method": "get",
-        "path": "/Responses/WithTestStatus"
-      },
-      "response": {
-        "status": 204,
-        "headers": {
-        }
-      }
-    },
-    {
       "description": "A GET request to /Responses/WithStatusCode200",
-      "providerState": "/Responses/WithStatusCode200",
       "request": {
         "method": "get",
         "path": "/Responses/WithStatusCode200"
@@ -73,7 +72,7 @@
   ],
   "metadata": {
     "pactSpecification": {
-      "version": "2.0.0"
+      "version": "3.0.0"
     }
   }
 }

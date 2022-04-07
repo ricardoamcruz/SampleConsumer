@@ -45,7 +45,7 @@ namespace tests
             HttpStatusCode result = await consumer.GetResponse(_mockProviderServiceBaseUri + "/Responses/WithStatusCode200");
 
             // Assert
-            result.Should().NotBeNull();
+            result.Should().NotBe(null);
             result.Should().Be(HttpStatusCode.OK);
         }
 
@@ -71,7 +71,7 @@ namespace tests
             HttpStatusCode result = await consumer.GetResponse(_mockProviderServiceBaseUri + "/Responses/WithTestStatus?valor=true");
 
             // Assert
-            result.Should().NotBeNull();
+            result.Should().NotBe(null);
             result.Should().Be(HttpStatusCode.OK);
         }
 
@@ -96,7 +96,7 @@ namespace tests
             HttpStatusCode result = await consumer.GetResponse(_mockProviderServiceBaseUri + "/Responses/WithTestStatus");
 
             // Assert
-            result.Should().NotBeNull();
+            result.Should().NotBe(null);
             result.Should().Be(HttpStatusCode.NoContent);
         }
 
