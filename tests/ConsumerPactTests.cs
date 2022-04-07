@@ -145,7 +145,7 @@ namespace tests
             responseMessage.Should().Be("\"Received body parameter: AQUI\"");
         }
 
-        //[Fact]
+        [Fact]
         public async void ReceivesBodyWithModel()
         {
             var model = new DummyBody()
@@ -171,7 +171,7 @@ namespace tests
                 .WillRespondWith(new ProviderServiceResponse
                 {
                     Status = 200,
-                    Body = JsonConvert.SerializeObject("Received body parameter: SampleAPI.Models.DummyBody"),
+                    Body = model,
                     Headers = new Dictionary<string, object>()
                     {
                         { "Content-Type", "application/json; charset=utf-8" }
