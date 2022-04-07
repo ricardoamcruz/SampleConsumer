@@ -7,7 +7,33 @@
   },
   "interactions": [
     {
-      "description": "A GET request to /Responses/WithTestStatus with body",
+      "description": "A POST request to /Body/WithModel",
+      "request": {
+        "method": "post",
+        "path": "/Body/WithModel",
+        "headers": {
+          "Content-Type": "application/json; charset=utf-8"
+        },
+        "body": {
+          "Name": "Ricardo",
+          "Id": 13,
+          "Tags": null,
+          "Inner": null,
+          "StringList": null,
+          "ObjectList": null,
+          "Dict": null
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json; charset=utf-8"
+        },
+        "body": "\"Received body parameter: SampleAPI.Models.DummyBody\""
+      }
+    },
+    {
+      "description": "A GET request to /Responses/WithTestStatus with query",
       "request": {
         "method": "get",
         "path": "/Responses/WithTestStatus",
@@ -21,7 +47,6 @@
     },
     {
       "description": "A GET request to /Responses/WithTestStatus",
-      "providerState": "/Responses/WithTestStatus false",
       "request": {
         "method": "get",
         "path": "/Responses/WithTestStatus"

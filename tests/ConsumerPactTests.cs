@@ -1,10 +1,13 @@
 using Consumer;
 using FluentAssertions;
+using Newtonsoft.Json;
 using PactNet.Matchers.Type;
 using PactNet.Mocks.MockHttpService;
 using PactNet.Mocks.MockHttpService.Models;
 using System.Collections.Generic;
 using System.Net;
+using System.Net.Http;
+using System.Text;
 using Xunit;
 
 namespace tests
@@ -22,7 +25,7 @@ namespace tests
         }
 
         [Fact]
-        public async void ReceivesBodyWithString()
+        public async void ReceivesStatusCode200()
         {
             // Arrange
             _mockProviderService.Given("/Responses/WithStatusCode200")
@@ -47,11 +50,11 @@ namespace tests
         }
 
         [Fact]
-        public async void ReceivesTestBodyTrue()
+        public async void ReceivesTestQueryTrue()
         {
             // Arrange
             _mockProviderService//.Given("/Responses/WithTestStatus true")
-                .UponReceiving("A GET request to /Responses/WithTestStatus with body")
+                .UponReceiving("A GET request to /Responses/WithTestStatus with query")
                 .With(new ProviderServiceRequest
                 {
                     Method = HttpVerb.Get,
@@ -73,10 +76,10 @@ namespace tests
         }
 
         [Fact]
-        public async void ReceivesTestBodyFalse()
+        public async void ReceivesTestQueryFalse()
         {
             // Arrange
-            _mockProviderService.Given("/Responses/WithTestStatus false")
+            _mockProviderService//.Given("/Responses/WithTestStatus false")
                 .UponReceiving("A GET request to /Responses/WithTestStatus")
                 .With(new ProviderServiceRequest
                 {
@@ -96,5 +99,109 @@ namespace tests
             result.Should().NotBeNull();
             result.Should().Be(HttpStatusCode.NoContent);
         }
+
+        //[Fact]
+        public async void ReceivesBodyWithString()
+        {
+            var content = new StringContent("AQUI", Encoding.UTF8, "application/json");
+            var jsonString = JsonConvert.SerializeObject(content);
+
+            // Arrange
+            _mockProviderService
+                .UponReceiving("A POST request to /Body/WithString")
+                .With(new ProviderServiceRequest
+                {
+                    Method = HttpVerb.Post,
+                    Path = "/Body/WithString",
+                    Body = jsonString,
+                    Headers = new Dictionary<string, object>()
+                    {
+                        { "Content-Type", "application/json; charset=utf-8" }
+                    }
+                })
+                .WillRespondWith(new ProviderServiceResponse
+                {
+                    Status = 200,
+                    Body = JsonConvert.SerializeObject("Received body parameter: AQUI"),
+                    Headers = new Dictionary<string, object>()
+                    {
+                        { "Content-Type", "application/json; charset=utf-8" }
+                    }
+                });
+
+            var consumer = new ProductClient();
+
+            //Act
+            //var response = await consumer.PostRequest(_mockProviderServiceBaseUri + "/Body/WithString", content);
+            var response = await consumer.PostRequest(_mockProviderServiceBaseUri + "/Body/WithString", content);
+
+            var statusCode = response.StatusCode;
+            var responseMessage = await response.Content.ReadAsStringAsync();
+            //var teste = JsonConvert.DeserializeObject<object>(responseMessage);
+
+            // Assert
+            response.Should().NotBeNull();
+            statusCode.Should().Be(HttpStatusCode.OK);
+            responseMessage.Should().Be("\"Received body parameter: AQUI\"");
+        }
+
+        [Fact]
+        public async void ReceivesBodyWithModel()
+        {
+            var model = new DummyBody()
+            {
+                Id = 13,
+                Name = "Ricardo"
+            };
+            var json = JsonConvert.SerializeObject(model);
+
+            // Arrange
+            _mockProviderService
+                .UponReceiving("A POST request to /Body/WithModel")
+                .With(new ProviderServiceRequest
+                {
+                    Method = HttpVerb.Post,
+                    Path = "/Body/WithModel",
+                    Body = model,
+                    Headers = new Dictionary<string, object>()
+                    {
+                        { "Content-Type", "application/json; charset=utf-8" }
+                    }
+                })
+                .WillRespondWith(new ProviderServiceResponse
+                {
+                    Status = 200,
+                    Body = JsonConvert.SerializeObject("Received body parameter: SampleAPI.Models.DummyBody"),
+                    Headers = new Dictionary<string, object>()
+                    {
+                        { "Content-Type", "application/json; charset=utf-8" }
+                    }
+                });
+
+            var consumer = new ProductClient();
+
+            //Act
+            //_mockProviderServiceBaseUri = "http://localhost:9000";
+            var response = await consumer.PostRequest(_mockProviderServiceBaseUri + "/Body/WithModel", model);
+
+            var statusCode = response.StatusCode;
+            var responseMessage = await response.Content.ReadAsStringAsync();
+
+            // Assert
+            response.Should().NotBeNull();
+            statusCode.Should().Be(HttpStatusCode.OK);
+        }
+    }
+
+
+    public class DummyBody
+    {
+        public string Name { get; set; }
+        public int Id { get; set; }
+        public string[] Tags { get; set; }
+        public object Inner { get; set; }
+        public List<string> StringList { get; set; }
+        public List<object> ObjectList { get; set; }
+        public Dictionary<string, int> Dict { get; set; }
     }
 }
