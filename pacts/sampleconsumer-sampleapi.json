@@ -32,40 +32,6 @@
       }
     },
     {
-      "description": "A POST request to /Body/WithModel",
-      "request": {
-        "method": "post",
-        "path": "/Body/WithModel",
-        "headers": {
-          "Content-Type": "application/json; charset=utf-8"
-        },
-        "body": {
-          "Name": "Ricardo",
-          "Id": 13,
-          "Tags": null,
-          "Inner": null,
-          "StringList": null,
-          "ObjectList": null,
-          "Dict": null
-        }
-      },
-      "response": {
-        "status": 200,
-        "headers": {
-          "Content-Type": "application/json; charset=utf-8"
-        },
-        "body": {
-          "Name": "Ricardo",
-          "Id": 13,
-          "Tags": null,
-          "Inner": null,
-          "StringList": null,
-          "ObjectList": null,
-          "Dict": null
-        }
-      }
-    },
-    {
       "description": "A GET request to /Responses/WithStatusCode200",
       "request": {
         "method": "get",

@@ -145,13 +145,13 @@ namespace tests
             responseMessage.Should().Be("\"Received body parameter: AQUI\"");
         }
 
-        [Fact]
+        //[Fact]
         public async void ReceivesBodyWithModel()
         {
             var model = new DummyBody()
             {
                 Id = 13,
-                Name = "Ricardo"
+                Name = "MyName"
             };
             var json = JsonConvert.SerializeObject(model);
 
