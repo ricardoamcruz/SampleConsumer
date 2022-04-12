@@ -30,11 +30,9 @@ namespace Consumer
             using var client = httpClient ?? new HttpClient();
 
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            var body = "TESTANDO";
-            var contents = new StringContent(body);
-            contents.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json");//;odata=verbose
+            content.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json");//;odata=verbose
 
-            return await client.PostAsync(baseUrl, contents);
+            return await client.PostAsync(baseUrl, content);
 
         }
 

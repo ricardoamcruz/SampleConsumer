@@ -103,7 +103,7 @@ namespace tests
         //[Fact]
         public async void ReceivesBodyWithString()
         {
-            var content = new StringContent("AQUI", Encoding.UTF8, "application/json");
+            var content = new StringContent("StringContent", Encoding.UTF8, "application/json");
             var jsonString = JsonConvert.SerializeObject(content);
 
             // Arrange
@@ -132,8 +132,8 @@ namespace tests
             var consumer = new ProductClient();
 
             //Act
-            //var response = await consumer.PostRequest(_mockProviderServiceBaseUri + "/Body/WithString", content);
             var response = await consumer.PostRequest(_mockProviderServiceBaseUri + "/Body/WithString", content);
+            //var response = await consumer.PostRequest(_mockProviderServiceBaseUri + "/Body/WithString", content);
 
             var statusCode = response.StatusCode;
             var responseMessage = await response.Content.ReadAsStringAsync();
@@ -142,7 +142,7 @@ namespace tests
             // Assert
             response.Should().NotBeNull();
             statusCode.Should().Be(HttpStatusCode.OK);
-            responseMessage.Should().Be("\"Received body parameter: AQUI\"");
+            responseMessage.Should().Be("\"Received body parameter: StringContent\"");
         }
 
         //[Fact]
